@@ -34,6 +34,10 @@ const productSchma=new mongoose.Schema({
     stock:{
         type:String,
     },
+    oderNum:{
+        type:Number,
+        default:0
+    },
 
     vendorId:{
         type:String,
