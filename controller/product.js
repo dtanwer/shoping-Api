@@ -54,6 +54,14 @@ export const getProducts= async (req,res)=>{
         console.log(error)
     }
 }
+export const getTopProducts= async (req,res)=>{
+    try {
+        const resp=await productModel.aggregate( [{"$match":{isDraft:false}},{"$sort" : {oderNum:-1}},{"$limit":10}])
+        res.status(200).json(resp)
+    } catch (error) {
+        console.log(error)
+    }
+}
 export const getProductsByOwner= async (req,res)=>{
     const vendorId=req.params.vendorId;
     try {
