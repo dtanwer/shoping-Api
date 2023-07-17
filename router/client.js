@@ -1,8 +1,8 @@
 import express from 'express';
-import { clientLogin,updateClient,disableClient,clientSignUp,checkUser,addToCart,addAddress,removeToCart,removeAddress,getAllVendor,getAllUser,getUser } from '../controller/client.js';
+import { clientLogin,updateClient,disableClient,clientSignUp,checkUser,addToCart,addAddress,removeToCart,removeAddress,getAllVendor,getAllUser } from '../controller/client.js';
 
 const router = express.Router()
-router.get('/user/:id',getUser)
+// router.get('/user/:id',getUser)
 router.get('/vendor',getAllVendor)
 router.get('/user',getAllUser)
 router.post('/signup',clientSignUp)

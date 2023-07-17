@@ -69,11 +69,11 @@ export const addToCart = async (req, res) => {
     const user = await clientModel.updateOne({ _id: id }, { $push: { cart: req.body } });
     return res.status(200).json(user);
 }
-export const getUser = async (req, res) => {
-    const id = req.params.id;
-    const user = await clientModel.findOne({_id:id});
-    return res.status(200).json(user);
-}
+// export const getUser = async (req, res) => {
+//     const id = req.params.id;
+//     const user = await clientModel.findOne({_id:id});
+//     return res.status(200).json(user);
+// }
 export const removeToCart = async (req, res) => {
     const id = req.params.id;
     const user = await clientModel.updateOne({ _id: id }, { $pull: { cart: req.body } });
