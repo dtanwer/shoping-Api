@@ -56,7 +56,7 @@ export const getProducts= async (req,res)=>{
 }
 export const getTopProducts= async (req,res)=>{
     try {
-        const resp=await productModel.aggregate( [{"$match":{isDraft:false}},{"$sort" : {oderNum:-1}},{"$limit":10}])
+        const resp=await productModel.aggregate( [{"$match":{isDraft:false}},{"$sort" : {oderNum:-1}},{"$limit":4}])
         res.status(200).json(resp)
     } catch (error) {
         console.log(error)
