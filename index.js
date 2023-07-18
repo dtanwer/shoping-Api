@@ -5,6 +5,7 @@ import multer from 'multer'
 import clientRouter from './router/client.js'
 import productRouter from './router/product.js'
 import orderRouter from './router/order.js'
+import bannerRouter from './router/banner.js'
 import path from 'path'
 import * as url from 'url';
 const app = express();
@@ -33,6 +34,7 @@ app.post('/uploads',upload.single('image'),(req,res)=>{
 app.use('/auth', clientRouter)
 app.use('/product', productRouter)
 app.use('/order', orderRouter)
+app.use('/banner',bannerRouter )
 try {
     mongoose.connect('mongodb+srv://dtanwer:123123123@cluster0.fhspuw3.mongodb.net/Shoping?retryWrites=true&w=majority');
     console.log("Connected to MongoDb")

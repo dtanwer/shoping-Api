@@ -1,10 +1,15 @@
 import { clientModel } from "../model/Client.js";
 export const clientSignUp = async (req, res) => {
-    const { email } = req.body;
+    const { email,phone } = req.body;
     let client = await clientModel.findOne({ email });
     if (client) {
 
         return res.status(209).send("Email  Already Exist!!");
+    }
+     client = await clientModel.findOne({ phone });
+    if (client) {
+
+        return res.status(208).send("phone number Already exist");
     }
 
     try {
@@ -18,7 +23,7 @@ export const clientSignUp = async (req, res) => {
 }
 export const getAllVendor = async (req, res) => {
     try {
-        let clients = await clientModel.find({type:"vendor"});
+        let clients = await clientModel.find({ type: "vendor" });
         return res.status(200).json(clients);
     } catch (error) {
         console.log(error)
@@ -27,7 +32,7 @@ export const getAllVendor = async (req, res) => {
 }
 export const getAllUser = async (req, res) => {
     try {
-        let clients = await clientModel.find({type:"user"});
+        let clients = await clientModel.find({ type: "user" });
         return res.status(200).json(clients);
     } catch (error) {
         console.log(error)
@@ -50,13 +55,26 @@ export const clientLogin = async (req, res) => {
     if (user.password === password && user.isActive) {
         return res.status(200).json(user);
     }
-    else if(!user.isActive)
-    {
+    else if (!user.isActive) {
         return res.status(205).send("User Block");
     }
     else {
         return res.status(401).send("Password is wrong!!");
     }
+
+}
+export const updatePhone = async (req, res) => {
+    const id = req.params.id;
+    const { phone } = req.body
+    let user = await clientModel.findOne({ phone });
+    if (user) {
+        user = await clientModel.findOne({ phone});
+        if (user) {
+            return res.status(209).send("Phone Number  Already Exist!!");
+        }
+    }
+    const newUser = await clientModel.findByIdAndUpdate(id, req.body, { new: true });
+    return res.status(200).json(newUser);
 
 }
 export const checkUser = async (req, res) => {
@@ -69,11 +87,6 @@ export const addToCart = async (req, res) => {
     const user = await clientModel.updateOne({ _id: id }, { $push: { cart: req.body } });
     return res.status(200).json(user);
 }
-// export const getUser = async (req, res) => {
-//     const id = req.params.id;
-//     const user = await clientModel.findOne({_id:id});
-//     return res.status(200).json(user);
-// }
 export const removeToCart = async (req, res) => {
     const id = req.params.id;
     const user = await clientModel.updateOne({ _id: id }, { $pull: { cart: req.body } });
