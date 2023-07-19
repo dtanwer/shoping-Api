@@ -8,10 +8,12 @@ import {
     getProductsByOwner,
     deleteProduct,
     getProductsByCategory,
-    getTopProducts
+    getTopProducts,
+    getSearchProducts
 } from '../controller/product.js'
 const router = express.Router()
 router.get('/', getProducts)
+router.get('/search/:q', getSearchProducts)
 router.get('/top', getTopProducts)
 router.get('/category/:name', getProductsByCategory)
 router.get('/:id', getProduct)
