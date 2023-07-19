@@ -48,7 +48,7 @@ export const deleteProduct= async (req,res)=>{
 }
 export const getProducts= async (req,res)=>{
     try {
-        const resp= await productModel.find({isDraft:false})
+        const resp= await productModel.find({isDraft:false,isDelete:false})
         res.status(200).json(resp)
     } catch (error) {
         console.log(error)
@@ -65,7 +65,7 @@ export const getTopProducts= async (req,res)=>{
 export const getProductsByOwner= async (req,res)=>{
     const vendorId=req.params.vendorId;
     try {
-        const resp= await productModel.find({vendorId,isDraft:false})
+        const resp= await productModel.find({vendorId,isDraft:false,isDelete:false})
         res.status(200).json(resp)
     } catch (error) {
         return res.status(400).json(error);
@@ -74,7 +74,7 @@ export const getProductsByOwner= async (req,res)=>{
 export const getDraftProductsWithOwner= async (req,res)=>{
     const vendorId=req.params.vendorId;
     try {
-        const resp= await productModel.find({vendorId,isDraft:true})
+        const resp= await productModel.find({vendorId,isDraft:true,isDelete:false})
         res.status(200).json(resp)
     } catch (error) {
         console.log(error)
